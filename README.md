@@ -13,13 +13,12 @@
 | first_name | string | null: false |
 | last_name_kana | string | null: false |
 | first_name_kana | string | null: false |
-| birthyear_id | integer | null: false |
-| birthmonth_id | integer | null:false |
 | birthday_id | integer | null: false |
 
 ### Association
 
 - has_many :items 
+- has_many :purchase_histories
 
 ## items テーブル
 
@@ -38,6 +37,7 @@
 ### Association
 
 - belongs_to : user
+- has_one :purchase_history
 
 ## purchase_histories テーブル
 
@@ -48,6 +48,8 @@
 
 ### Association
 
+- belongs_to :user
+- belongs_to :item
 - has_one :address
 
 ## addresses テーブル
@@ -59,7 +61,8 @@
 | city | string | null: false |
 | block | string | null: false |
 | building | string |  |
-| phone | integer | null: false |
+| phone | string | null: false |
+| purchase_history_id | references | null:false, foreign_key: true |
 
 ### Association
 
