@@ -6,10 +6,13 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    context 'ユーザー情報を保存できるとき' do
     it 'すべての情報が存在すれば登録できること' do
       expect(@user).to be_valid
     end
+    end
 
+    context 'ユーザー情報を保存できないとき' do
     it 'nicknameが空では登録できないこと' do
       @user.nickname = nil
       @user.valid?
@@ -93,7 +96,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include('Last name is invalid')
     end
 
-    it 'ユーザー名の名は全角でないと登録できないため' do
+    it 'ユーザー名の名は全角でないと登録できないこと' do
       @user.first_name = 'ﾃｽ'
       @user.valid?
       expect(@user.errors.full_messages).to include('First name is invalid')
@@ -115,6 +118,7 @@ RSpec.describe User, type: :model do
       @user.birthday = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("Birthday can't be blank")
+    end
     end
   end
 end
