@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
     it 'passwordが空では登録できないこと' do
       @user.password = nil
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password can't be blank", 'Password is invalid')
+      expect(@user.errors.full_messages).to include("Password can't be blank")
     end
 
     it 'passwordが5文字以下であれば登録できないこと' do
@@ -102,15 +102,13 @@ RSpec.describe User, type: :model do
     it 'ユーザー名の姓のフリガナがなければ登録できないこと' do
       @user.last_name_kana = nil
       @user.valid?
-      expect(@user.errors.full_messages).to include("Last name kana can't be blank",
-                                                    'Last name kana is invalid')
+      expect(@user.errors.full_messages).to include("Last name kana can't be blank")
     end
 
     it 'ユーザー名の名のフリガナがなければ登録できないこと' do
       @user.first_name_kana = nil
       @user.valid?
-      expect(@user.errors.full_messages).to include("First name kana can't be blank",
-                                                    'First name kana is invalid')
+      expect(@user.errors.full_messages).to include("First name kana can't be blank")
     end
 
     it '生年月日がなければ登録できないこと' do
