@@ -17,6 +17,19 @@ RSpec.describe ItemOrder, type: :model do
       @item_order.valid?
       expect(@item_order.errors.full_messages).to include("Token can't be blank")
     end
+
+    it 'user_idがないと購入できない' do
+      @item_order.user_id = nil
+      @item_order.valid?
+      expect(@item_order.errors.full_messages).to include("User can't be blank")
+    end
+
+    it 'item_idがないと購入できない' do
+      @item_order.item_id = nil
+      @item_order.valid?
+      expect(@item_order.errors.full_messages).to include("Item can't be blank")
+    end
+
     it '郵便番号がないと購入できない' do
       @item_order.postal_code = nil
       @item_order.valid?
@@ -33,6 +46,12 @@ RSpec.describe ItemOrder, type: :model do
       @item_order.prefecture = nil
       @item_order.valid?
       expect(@item_order.errors.full_messages).to include("Prefecture can't be blank")
+    end
+
+    it '都道府県のidが１では登録できない' do
+      @item_order.prefecture = 1
+      @item_order.valid?
+      expect(@item_order.errors.full_messages).to include("Prefecture must be other than 1")
     end
 
     it '市区町村がないと購入できない' do
