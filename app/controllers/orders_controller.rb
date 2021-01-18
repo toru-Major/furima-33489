@@ -1,13 +1,14 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :move_to_top
-
+  before_action :set_item
+  
   def index
     @item_order = ItemOrder.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
+    set_item
     @item_order = ItemOrder.new(order_params)
     if @item_order.valid?
       pay_item
@@ -20,15 +21,19 @@ class OrdersController < ApplicationController
 
   private
   
-  def move_to_top
+  def set_item
     @item = Item.find(params[:item_id])
+  end
+
+  def move_to_top
+    set_item
     if current_user.id == @item.user_id || @item.order.present?
       redirect_to root_path
     end
   end
 
   def order_params
-    @item = Item.find(params[:item_id])
+    set_item
     params.require(:item_order).permit(:postal_code, :prefecture, :city, :block, :building, :phone)
                                .merge(user_id: current_user.id, item_id: @item.id, token: params[:token])
   end
