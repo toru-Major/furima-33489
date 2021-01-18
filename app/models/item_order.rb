@@ -9,6 +9,8 @@ class ItemOrder
     validates :block
     validates :phone, format: { with: /(0{1}\d{9,10})/ }
     validates :token
+    validates :user_id
+    validates :item_id
   end
 
   def save
