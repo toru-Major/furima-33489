@@ -83,5 +83,11 @@ RSpec.describe ItemOrder, type: :model do
       @item_order.valid?
       expect(@item_order.errors.full_messages).to include('Phone is invalid')
     end
+
+    it '電話番号が英数混合では登録できないこと' do
+      @item_order.phone = '000aaaabbbb'
+      @item_order.valid?
+      expect(@item_order.errors.full_messages).to include("Phone is invalid")
+    end
   end
 end
