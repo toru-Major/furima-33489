@@ -22,21 +22,17 @@
         <%= @item.shipping_fee.name %>
       </span>
     </div>
-  <% unless @item.order.present? %>  
-  <% if user_signed_in? %>
-    <% if current_user.id == @item.user_id %>  
-      <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
-      <p class='or-text'>or</p>
-      <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
-  
-      <%# 商品が売れていない場合はこちらを表示しましょう %>
-    <% else %>
-      <%= link_to '購入画面に進む', item_orders_path(@item.id),class:"item-red-btn"%>
-    <% end %>  
-  <% end %>
-  <% end %>
-    <%# //商品が売れていない場合はこちらを表示しましょう %>
-
+    <% unless @item.order.present? %>  
+      <% if user_signed_in? %>
+        <% if current_user.id == @item.user_id %>  
+          <%= link_to '商品の編集', edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
+          <p class='or-text'>or</p>
+          <%= link_to '削除', item_path(@item.id), method: :delete, class:'item-destroy' %>
+        <% else %>
+          <%= link_to '購入画面に進む', item_orders_path(@item.id),class:"item-red-btn"%>
+        <% end %>  
+      <% end %>
+    <% end %>
     <div class="item-explain-box">
       <span><%= @item.detail %></span>
     </div>
